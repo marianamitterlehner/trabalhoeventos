@@ -1,5 +1,6 @@
-import { response } from 'express';
-import { getCustomRepository, getRepository } from 'typeorm' //conecta ao model para ter acesso aos metodos
+import { hash } from 'bcryptjs';
+import { request } from 'express';
+import { getRepository } from 'typeorm' //conecta ao model para ter acesso aos metodos
 
 import Users from '../models/Users';
 
@@ -21,8 +22,10 @@ class UserController {
             throw new Error('email address already registered')
         }
 
+        const hashedPassword = await hash(password, 8);
+
         const user = userRepository.create({
-            name, email, password
+            name, email, password:hashedPassword
         })
 
         await userRepository.save(user);

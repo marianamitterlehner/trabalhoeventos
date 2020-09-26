@@ -1,18 +1,20 @@
-import {request, response, Router} from 'express';
+import {Request, Response, Router} from 'express';
 import {getRepository} from 'typeorm'
 import UserController from '../app/controllers/UserController'
 import Users from '../app/models/Users';
 
 const usersRouter = Router();
 
-usersRouter.post('/', async (request, response) =>{
+usersRouter.post('/', async (request:Request, response:Response) =>{
     try{
         const { name, email, password } = request.body
         const userController = new UserController();
 
         const user = await userController.store({
             name, email, password
-        })
+        });
+
+    //    delete user.password
 
         return response.json(user);
     }catch(erro){
@@ -23,6 +25,7 @@ usersRouter.post('/', async (request, response) =>{
 usersRouter.get('/', async(request, response) =>{
     const userRepository = getRepository(Users);
     const user = await userRepository.find();
+   // delete user[0].password;
     return response.json(user);
 })
 
