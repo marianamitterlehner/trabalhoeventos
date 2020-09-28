@@ -2,6 +2,7 @@ import {Request, Response, Router} from 'express';
 import {getRepository} from 'typeorm'
 import UserController from '../app/controllers/UserController'
 import Users from '../app/models/Users';
+import ensureAuthenticated from '../middleawares/ensureAuthenticated';
 
 const usersRouter = Router();
 
@@ -14,7 +15,7 @@ usersRouter.post('/', async (request:Request, response:Response) =>{
             name, email, password
         });
 
-    //    delete user.password
+        delete user.password
 
         return response.json(user);
     }catch(erro){
@@ -22,25 +23,27 @@ usersRouter.post('/', async (request:Request, response:Response) =>{
         }
 })
 
-usersRouter.get('/', async(request, response) =>{
+usersRouter.get('/', ensureAuthenticated, async(request, response) =>{
     const userRepository = getRepository(Users);
     const user = await userRepository.find();
-   // delete user[0].password;
+    console.log(request.user);
+    delete user[0].password;
     return response.json(user);
 })
 
-usersRouter.get('/:id', async(request, response) =>{
+usersRouter.get('/:id', ensureAuthenticated, async(request, response) =>{
     const userRepository = getRepository(Users);
     const {id} = request.params;
     const user = await userRepository.findOne(id);
     return response.json(user);
 })
 
-usersRouter.delete('/:id', async(request, response) =>{
+usersRouter.delete('/:id', ensureAuthenticated, async(request, response) =>{
     const userRepository = getRepository(Users);
     const {id} = request.params;
     await userRepository.delete(id);
     return response.send();
 })
+
 
 export default usersRouter;

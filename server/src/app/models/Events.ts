@@ -1,5 +1,4 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,  } from 'typeorm';
-import { JoinAttribute } from 'typeorm/query-builder/JoinAttribute';
 import User from './Users';
 
 @Entity('events')

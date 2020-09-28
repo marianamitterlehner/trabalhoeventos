@@ -2,6 +2,7 @@ import { hash } from 'bcryptjs';
 import { request } from 'express';
 import { getRepository } from 'typeorm' //conecta ao model para ter acesso aos metodos
 
+
 import Users from '../models/Users';
 
 interface Request {
