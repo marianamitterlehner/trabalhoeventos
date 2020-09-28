@@ -7,7 +7,6 @@ import ensureAuthenticated from '../middleawares/ensureAuthenticated';
 const usersRouter = Router();
 
 usersRouter.post('/', async (request:Request, response:Response) =>{
-    try{
         const { name, email, password } = request.body
         const userController = new UserController();
 
@@ -18,9 +17,6 @@ usersRouter.post('/', async (request:Request, response:Response) =>{
         delete user.password
 
         return response.json(user);
-    }catch(erro){
-        return response.status(400).json({ error: erro.message});
-        }
 })
 
 usersRouter.get('/', ensureAuthenticated, async(request, response) =>{

@@ -5,13 +5,13 @@ import multer from 'multer';
 import EventController from '../app/controllers/EventController'
 import Events from '../app/models/Events';
 import ensureAuthenticated from '../middleawares/ensureAuthenticated';
-import Upload from '../config/upload';
+import UploadConfig from '../config/upload';
+import PhotosController from '../app/controllers/PhotosController';
 
 const eventsRouter = Router();
-const upload = multer(Upload);
+const upload = multer(UploadConfig);
 
 eventsRouter.post('/', ensureAuthenticated, async (request:Request, response:Response) =>{ //criar evento
-    try{
         const { user_id, name, local, photos, comment } = request.body
         const eventController = new EventController();
 
@@ -20,9 +20,6 @@ eventsRouter.post('/', ensureAuthenticated, async (request:Request, response:Res
         });
 
         return response.json(event);
-    }catch(erro){
-        return response.status(400).json({ error: erro.message});
-        }
 })
 
 eventsRouter.get('/', ensureAuthenticated, async(request, response) =>{  //listar todos os eventos
@@ -39,10 +36,16 @@ eventsRouter.delete('/:id', ensureAuthenticated, async(request, response) =>{
 })
 
 eventsRouter.patch('/', ensureAuthenticated, 
-    upload.array('photos'), 
+    upload.single('photos'), 
     async(request, response) =>{
-        console.log(request.file);
-        return response.json({ok:true});
+           const photosController = new PhotosController();
+            const user = await photosController.update({
+                user_id:request.user.id,
+                photosFileName: request.file.filename,
+            });
+            console.log(request.file);
+            delete user.password;
+            return response.json(user);  
     }
 );
 

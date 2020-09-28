@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs';
 import { request } from 'express';
 import { getRepository } from 'typeorm' //conecta ao model para ter acesso aos metodos
-
+import AppError from '../../error/AppError';
 
 import Users from '../models/Users';
 
@@ -20,7 +20,7 @@ class UserController {
         });
 
         if(checkEmail){
-            throw new Error('email address already registered')
+            throw new AppError('email address already registered')
         }
 
         const hashedPassword = await hash(password, 8);
