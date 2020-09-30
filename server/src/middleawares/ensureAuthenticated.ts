@@ -21,7 +21,7 @@ export default function ensureAuthenticated(request:Request, response:Response, 
         const {sub} = decode as TokenPayload;
         request.user = {id:sub};
         return next();
-    }catch(error){
+    }catch{
         throw new AppError('invalid token', 401)
     }
 }
