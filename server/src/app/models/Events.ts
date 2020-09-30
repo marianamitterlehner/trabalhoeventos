@@ -9,7 +9,7 @@ class Events{
     @Column()
     user_id: string;
 
-    @ManyToOne(() =>User)
+    @ManyToOne(() => User)
     @JoinColumn({name:'user_id'})
     user:User;
 

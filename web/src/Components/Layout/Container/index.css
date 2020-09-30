@@ -1,0 +1,29 @@
+.conteiner{
+    width: 22rem;
+    height: auto;
+    justify-content: space-around;
+    background: var(--palette-primary);
+    border: 0;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.page-primary{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.page-primary h1{
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+
+.page-primary h2{
+    padding: 1rem;
+}

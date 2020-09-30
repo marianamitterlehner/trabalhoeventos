@@ -1,7 +1,6 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-
-export default class CreateEvents1601057864417 implements MigrationInterface {
+export class CreateEvents1601419799294 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -55,5 +54,4 @@ export default class CreateEvents1601057864417 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('events');
     }
-
 }

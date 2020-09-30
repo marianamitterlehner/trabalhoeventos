@@ -20,7 +20,7 @@ class EventController{
         })
 
         await eventRepository.save(event);
-        return (event);
+        return event;
     }
     
 };

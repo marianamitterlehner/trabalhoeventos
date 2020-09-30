@@ -1,0 +1,26 @@
+input{
+    border: 0;
+    width: 300px;
+    border-radius: 10px;
+    padding: 0.8rem 1.5rem;
+    margin: 10px;
+}
+input + input{
+    margin-top: 20px;
+}
+
+input + textarea{
+    margin-top: 20px;
+}
+
+textarea{
+    
+    border: 0;
+    width: 300px;
+    min-Height: 100px;
+    border-radius: 10px;
+    padding: 0.8rem 1.5rem;
+    margin: 10px;
+    outline: 0;
+    resize: vertical;
+}
