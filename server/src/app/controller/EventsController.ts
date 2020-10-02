@@ -7,16 +7,16 @@ interface Request {
     user_id: string;
     name: string;
     local: string; 
-    photos: string; 
+    photograph: string; 
     comment:string;
 }
 
 class EventController{
-    public async store({user_id, name, local, photos, comment}: Request): Promise<Events>{
+    public async store({user_id, name, local, photograph, comment}: Request): Promise<Events>{
         const eventRepository = getRepository(Events);
 
         const event = eventRepository.create({
-            user_id, name, local, photos, comment
+            user_id, name, local, photograph, comment
         })
 
         await eventRepository.save(event);
@@ -24,5 +24,6 @@ class EventController{
     }
     
 };
+
 
 export default EventController;
